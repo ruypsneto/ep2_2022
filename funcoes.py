@@ -31,3 +31,18 @@ def sorteia_pais(dici):         #função que sorteia um elemento de dicionario
         lp.append(p)
     return random.choice(lp)
     # função ta certa e funcionando
+
+
+
+def sorteia_letra(palavra, lista_restritiva):      #função que sorteia uma letra em uma palavra que retira caracteres e as letras da lista restritiva 
+    l = ['.', ',', '-', ';', ' ']
+    nl = palavra
+    for i in l:  
+        nl = nl.replace(i, '')
+    for i in lista_restritiva:
+        nl =nl.replace(i,'')
+    if nl == '':
+        return nl
+    else:
+        p = random.choice(nl)
+    return p 
