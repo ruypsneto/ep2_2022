@@ -46,3 +46,29 @@ def sorteia_letra(palavra, lista_restritiva):      #função que sorteia uma let
     else:
         p = random.choice(nl)
     return p 
+
+
+
+def adiciona_em_ordem(pais, distancia, lp):    #função que deixa em ordem uma lista do maior para o menor (ela tah grande pq eu inverti ela pra deixar na ordem certa)
+    ol = []
+    for i in lp:
+        oadd = [i[1], i[0]]
+        ol.append(oadd)
+    oadd = [distancia, pais]
+    ol.append(oadd)
+    ol.sort()
+    lp =[]
+    for lis in ol:
+        lp.append([lis[1], lis[0]])
+    print(lp)
+    return lp
+
+
+
+def normaliza(dici):       #função que  normaliza a base de dados 
+    dp = {}
+    for continente in dici:
+        for pais in dici[continente]:
+            dp[pais] = dici[continente][pais]
+            dp[pais]["continente"] = continente 
+    return dp
