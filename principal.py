@@ -3,14 +3,72 @@ import funcoes as f
 from base_de_dados import dados
 from base_de_dados import raio_terra
 
+inicia_jogo = str(input('Iniciar Jogo[sim/nao]:'))
+
+while inicia_jogo != 'sim':
+    inicia_jogo = str(input('Iniciar Jogo:'))
+
+
+
 quer_jogar_novamente = True
 jogo = True 
-dados_convertidos = f.normaliza(dados)
-
+dados_convertidos = f.normaliza(dados)      # dados que vamos utilizar 
 while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate que o jogador nao queira mais 
+    tentativas = 20 
+    pais_sorteado = f.sorteia_pais(dados_convertidos)
+    lat_pais = dados_convertidos[pais_sorteado]['geo']['latitude']
+    long_pais = dados_convertidos[pais_sorteado]['geo']['longitude']
+    lista_registro_tentativas = []
+
     while jogo == True:        # aqui vai ser onde roda o jogo 
         # estrutura a pensar, tem um break pra n ferrar com o codigo mas depois tira 
-            break 
+        palpite = str(input('Qual seu palpite?'))
+        
+        if palpite == 'dicas':
+            # vai para mercado de diacas
+            a = 0
+
+        while palpite not in dados_convertidos.keys():
+            print('invalido')
+            palpite = str(input('Qual seu palpite?'))
+
+        tentativas -= 1
+        if tentativas <= 0:
+            print('voce perdeu, nao te restam tentativas')
+
+        if palpite == pais_sorteado:
+            
+            print('Parabens voce venceu!!!! ')
+            print('voce comseguio em {0}'.format(tentativas))
+            break
+
+        else:
+            verifica_registro = f.esta_na_lista(palpite, lista_registro_tentativas)
+        
+            if verifica_registro == False:
+
+                lat_palpite = dados_convertidos[palpite]['geo']['latitude']
+                long_palpite = dados_convertidos[palpite]['geo']['longitude']  
+                distancia = f.haversine(raio_terra, lat_palpite, lat_pais, long_palpite, long_pais)
+                lista_registro_tentativas = f.adiciona_em_ordem(palpite, distancia, lista_registro_tentativas)
+                print(lista_registro_tentativas)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        break 
 
 
     quer_jogar = str(input('Quer jogar novamente?[sim/nao]  '))
@@ -22,3 +80,5 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
     else:
         print('Obrigado por jogar!!!')
         quer_jogar_novamente = False
+
+
