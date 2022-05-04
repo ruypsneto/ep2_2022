@@ -19,7 +19,7 @@ def haversine(r, y1, k1, y2, k2):      # essa função calcula a distancia
 
 def esta_na_lista(pais, lista):        #essa função verifica se determinado elemento esta em uma lista 
     for px in lista:
-        if pais in px[0]:
+        if pais == px[0]:
             return True 
     return False
     # função ta certa e funcionando
@@ -60,7 +60,6 @@ def adiciona_em_ordem(pais, distancia, lp):    #função que deixa em ordem uma 
     lp =[]
     for lis in ol:
         lp.append([lis[1], lis[0]])
-    print(lp)
     return lp
 
 
