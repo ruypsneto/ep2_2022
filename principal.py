@@ -33,6 +33,15 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
             elif n_dica == 2:
                 p = dados_convertidos[pais_sorteado]['populacao']
                 print('{0} habitantes'.format(p))
+            elif n_dica == 3:
+                c = dados_convertidos[pais_sorteado]['capital']
+                letras_capital = []
+                l_c =  f.sorteia_letra(c, letras_capital)
+                print(l_c)
+                letras_capital.append(l_c)
+            
+
+        
         while palpite not in dados_convertidos.keys():
             print('invalido')
             palpite = str(input('Qual seu palpite?'))
