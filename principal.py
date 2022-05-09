@@ -39,6 +39,11 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
                 l_c =  f.sorteia_letra(c, letras_capital)
                 print(l_c)
                 letras_capital.append(l_c)
+            elif n_dica == 4:
+                cont = dados_convertidos[pais_sorteado]['continente']
+                print('o continente é ', cont)
+                
+
             
 
         
