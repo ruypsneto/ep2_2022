@@ -42,6 +42,13 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
             elif n_dica == 4:
                 cont = dados_convertidos[pais_sorteado]['continente']
                 print('o continente é ', cont)
+            elif n_dica == 5:
+                b = dados_convertidos[pais_sorteado]['bandeira']
+                for cor, qtd in b.items():
+                    if qtd > 0:
+                        print(cor)
+
+
                 
 
             
