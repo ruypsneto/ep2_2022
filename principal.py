@@ -29,8 +29,10 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
             n_dica = int(input('qual dica deseja?'))
             if n_dica == 1:
                a = dados_convertidos[pais_sorteado]['area']
-               print('{0}km²'.format(a))
-
+               print('{0} km²'.format(a))
+            elif n_dica == 2:
+                p = dados_convertidos[pais_sorteado]['populacao']
+                print('{0} habitantes'.format(p))
         while palpite not in dados_convertidos.keys():
             print('invalido')
             palpite = str(input('Qual seu palpite?'))
