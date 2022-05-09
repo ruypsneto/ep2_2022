@@ -47,7 +47,8 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
                 for cor, qtd in b.items():
                     if qtd > 0:
                         print(cor)
-
+            elif n_dica == 0:
+                 palpite = str(input('Qual seu palpite?'))
 
                 
 
