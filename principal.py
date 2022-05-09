@@ -26,7 +26,10 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
         
         if palpite == 'dicas':
             # vai para mercado de diacas
-            a = 0
+            n_dica = int(input('qual dica deseja?'))
+            if n_dica == 1:
+               a = dados_convertidos[pais_sorteado]['area']
+               print('{0}km²'.format(a))
 
         while palpite not in dados_convertidos.keys():
             print('invalido')
@@ -39,7 +42,7 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
         if palpite == pais_sorteado:
             
             print('Parabens voce venceu!!!! ')
-            print('voce comseguio em {0}'.format(tentativas))
+            print('voce conseguiu em {0}'.format(tentativas))
             break
 
         else:
