@@ -1,17 +1,21 @@
-# aqui vamo importar as funções do arquivo 'funçoes' pra rodar o sistema
-
+#  aqui roda o jogo 
 import funcoes as f 
 from base_de_dados import dados
 from base_de_dados import raio_terra
 import termcolor 
 
  
-logo = print('                       /////////////////////////////////\n                               INSPER PELO MUNDO\n                       /////////////////////////////////\n \n \n  \n \n \n ')
+logo ='                       /////////////////////////////////\n                               INSPER PELO MUNDO\n                       /////////////////////////////////\n \n \n  \n \n \n '
+print(logo)
+
 inicia_jogo = str(input('Iniciar Jogo[sim/nao]:'))
 
 while inicia_jogo != 'sim':
-    logo 
+    print(logo)
     inicia_jogo = str(input('Iniciar Jogo:'))
+
+
+print('\n \n Tente adivinhar qual é o pais ')
 
 
 
@@ -25,43 +29,76 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
     lat_pais = dados_convertidos[pais_sorteado]['geo']['latitude']
     long_pais = dados_convertidos[pais_sorteado]['geo']['longitude']
     lista_registro_tentativas = []
+    lista_registro_dicas = []
 
     while jogo == True:        # aqui vai ser onde roda o jogo 
-        # estrutura a pensar, tem um break pra n ferrar com o codigo mas depois tira 
-        print('Voce tem', tentativas,'restantes')
+
+
+        if tentativas >= 15:
+            cor_tentativas = 'blue'
+        elif tentativas >= 8 :
+            cor_tentativas = 'yellow'
+        elif tentativas < 8:
+            cor_tentativas = 'red'
+
+        print('\n \n Voce tem', termcolor.colored(tentativas, cor_tentativas),'restantes')
+        comandos = ' \n \n Digite \n dicas : vai para o mercado de dicas (gasta tentativas para a utilizacao delas) \n desisto : encerra a partida \n registro: aparece todas as dicas usadas \n \n \n '
+        print(comandos)
         palpite = str(input('Qual seu palpite?')).lower()
         palpite = palpite.strip()
+        
 
-        while  palpite  not in dados_convertidos.keys():
-            if palpite == 'dicas' or palpite == 'desisto':
-                break
-            print('invalido')
-            palpite = str(input('Qual seu palpite?'))
 
         if palpite == 'dicas':
-            n_dica = int(input('qual dica deseja?'))
-            if n_dica == 1:
+            intedicas = '\n \n Bem vindo ao mercado de dicas \n////////////////////////////////////////////\n// [1] Qual a area do pais ?             //\n// [2] Qual a população desse pais ?    //\n// [3] Qual uma letra da capital ?     //\n// [4] Qual o continente desse pais ? //\n// [5] Qual as cores da bandeira?    //\n// [0] nenhuma dica                 //\n/////////////////////////////////////'
+            print(intedicas)
+
+            n_dica = str(input('\n Qual dica deseja?[0/1/2/3/4/5]   '))
+
+            if n_dica == '1':
                a = dados_convertidos[pais_sorteado]['area']
+               ra = '{0} km²'.format(a)
                print('{0} km²'.format(a))
-            elif n_dica == 2:
+               lista_registro_dicas.append(ra)
+
+            elif n_dica =='2':
+
                 p = dados_convertidos[pais_sorteado]['populacao']
                 print('{0} habitantes'.format(p))
-            elif n_dica == 3:
+                pop = '{0} habitantes'.format(p)
+                lista_registro_dicas.append(pop)
+
+            elif n_dica == '3':
+
                 c = dados_convertidos[pais_sorteado]['capital']
                 letras_capital = []
                 l_c =  f.sorteia_letra(c, letras_capital)
-                print(l_c)
+                rletracapital = 'letra da capital é {}'.format(l_c)
+                print(rletracapital)
                 letras_capital.append(l_c)
-            elif n_dica == 4:
+                lista_registro_dicas.append(rletracapital)
+
+            elif n_dica == '4':
+
                 cont = dados_convertidos[pais_sorteado]['continente']
-                print('o continente é ', cont)
-            elif n_dica == 5:
+                rdica_continente = 'o continente é {}'.format(cont)
+                print(rdica_continente)
+                lista_registro_dicas.append(rdica_continente)
+
+            elif n_dica == '5':
+
                 b = dados_convertidos[pais_sorteado]['bandeira']
-                for cor, qtd in b.items():
+                for cor_ban, qtd in b.items():
                     if qtd > 0:
-                        print(cor)
-            elif n_dica == 0:
-                 palpite = str(input('Qual seu palpite?'))
+                        print(cor_ban)
+                    lista_registro_dicas.append(cor_ban)
+
+            elif n_dica == '0':
+                palpite = str(input('Qual seu palpite?'))
+
+            else:
+                print('invalido')
+                palpite = str(input('Qual seu palpite?'))
 
                 
 
@@ -69,13 +106,9 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
             print('Voce esta nervoso? \n Perdeu por desistencia')
             break
 
-
-        while  palpite  not in dados_convertidos.keys():
-            if palpite == 'dicas' or palpite == 'desisto':
-               palpite = str(input('Qual seu palpite?'))
-            else: 
-                print('invalido')
-                palpite = str(input('Qual seu palpite?'))
+        elif palpite  == 'registro':
+            for dica in lista_registro_dicas:
+                print(dica)
         
         if tentativas <= 0:
             print('voce perdeu, nao te restam tentativas')
@@ -89,7 +122,7 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
 
 
 
-        if palpite != 'dicas' and palpite != 'desisto':
+        if palpite != 'dicas' and palpite != 'desisto' and palpite in dados_convertidos.keys() and palpite != 'registro':
             verifica_registro = f.esta_na_lista(palpite, lista_registro_tentativas)
 
             if verifica_registro == False:
@@ -106,15 +139,16 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
                     elif registro[1] <= 2000:
                         cor = 'red'
 
-                    elif registro[1] <= 5000:
-                        cor = 'blue'
+                    elif registro[1] <= 4000:
+                        cor = 'magenta'
                     
-                    elif  registro[1] <= 8000:
+                    elif  registro[1] <= 6000:
                         cor= 'cyan'
-                    elif registro[1] <= 10000:
+
+                    elif registro[1] <= 8000:
                         cor = 'yellow'
 
-                    elif registro[1] > 10000:
+                    else:
                         cor = 'white'
                     
                     info_a_printar = '{1} ------ {0:.1f} Km'.format(registro[1], registro[0])
@@ -124,6 +158,9 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
 
                 
                 tentativas -= 1
+        
+        elif palpite != 'dicas' and palpite != 'desisto':
+            print('invalido')
     
 
 
