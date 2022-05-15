@@ -50,7 +50,7 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
 
 
         if palpite == 'dicas':
-            intedicas = '\n \n Bem vindo ao mercado de dicas \n////////////////////////////////////////////\n// [1] Qual a area do pais ?             //\n// [2] Qual a população desse pais ?    //\n// [3] Qual uma letra da capital ?     //\n// [4] Qual o continente desse pais ? //\n// [5] Qual as cores da bandeira?    //\n// [0] nenhuma dica                 //\n/////////////////////////////////////'
+            intedicas = '\n \n Bem vindo ao mercado de dicas \n////////////////////////////////////////////////////////\n// [1] Qual a area do pais ? -4 tentaivas            //\n// [2] Qual a população desse pais ?  -4 tentaivas  //\n// [3] Qual uma letra da capital ? -2 tentaivas    //\n// [4] Qual o continente desse pais ?-7 tentaivas //\n// [5] Qual as cores da bandeira? -5 tentaivas   //\n// [0] nenhuma dica                             //\n/////////////////////////////////////////////////'
             print(intedicas)
 
             n_dica = str(input('\n Qual dica deseja?[0/1/2/3/4/5]   '))
@@ -60,6 +60,7 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
                ra = '{0} km²'.format(a)
                print('{0} km²'.format(a))
                lista_registro_dicas.append(ra)
+               tentativas -= 4
 
             elif n_dica =='2':
 
@@ -67,6 +68,7 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
                 print('{0} habitantes'.format(p))
                 pop = '{0} habitantes'.format(p)
                 lista_registro_dicas.append(pop)
+                tentativas -= 4
 
             elif n_dica == '3':
 
@@ -77,6 +79,7 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
                 print(rletracapital)
                 letras_capital.append(l_c)
                 lista_registro_dicas.append(rletracapital)
+                tentativas-= 2
 
             elif n_dica == '4':
 
@@ -84,6 +87,7 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
                 rdica_continente = 'o continente é {}'.format(cont)
                 print(rdica_continente)
                 lista_registro_dicas.append(rdica_continente)
+                tentativas -= 7
 
             elif n_dica == '5':
 
@@ -92,6 +96,7 @@ while quer_jogar_novamente == True:         # aqui vai deixar o jogo em loop ate
                     if qtd > 0:
                         print(cor_ban)
                     lista_registro_dicas.append(cor_ban)
+                tentativas -= 5
 
             elif n_dica == '0':
                 palpite = str(input('Qual seu palpite?'))
